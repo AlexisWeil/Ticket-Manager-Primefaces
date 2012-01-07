@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/templates/main.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="ticketId" value="#{ticketController.ticket}" converter="#{ticketConverter}"/>
+	</f:metadata>
+
+	<ui:define name="head">
+		<script type="text/javascript">
+			$(document).ready( function() {
+				$('#addCommentLink').click( function() {
+					$.ajax({
+						url: "_addComment.jsf?ticketId=#{ticketController.ticket.id}",
+						success: function(html) {
+							$('#modal-from-dom-body').html(html);
+							$('#modal-from-dom').modal('toggle');
+						}
+					});
+				});
+			});
+		</script>
+		<style type="text/css">
+			article header h2 {
+				text-align: center;
+			}
+			#ticket {
+				border: black solid 2px;
+			}
+			#ticket .header {
+				font-weight: bold;
+				text-align: right;
+			}
+			#ticket p {
+				padding: 10px;
+			}
+			#comments{
+				padding-top: 10px;
+				margin: auto;
+				width: 60%;
+				text-align: center;
+			}
+			.comment {
+				border: 1px gray solid;
+				margin: 5px;
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="title"><h:outputText value="#{msg['showTicket.page.title']} #{ticketController.ticket.id}" /></ui:define>
+
+	<ui:define name="content">
+		<article>
+			<header>
+				<h2><h:outputText value="#{ticketController.ticket.summary}" /></h2>
+				<i>
+					<h:outputText value="#{msg['showTicket.creationDate']}" />
+					<h:outputText value="#{ticketController.ticket.createdAt}">
+						<f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
+					</h:outputText>
+				</i>
+			</header>
+			<section id="ticket">
+				<h:panelGrid columns="4">
+					<h:outputText value="#{msg['showTicket.reporter']}" styleClass="header" />
+					<h:outputText value="#{ticketController.ticket.reporter.firstName}
+												#{ticketController.ticket.reporter.lastName}" />
+					
+					<h:outputText value="#{msg['showTicket.developer']}" styleClass="header" />
+					<h:outputText rendered="#{not empty ticketController.ticket.developer}"
+									value="#{ticketController.ticket.developer.firstName} 
+												#{ticketController.ticket.developer.lastName}" />
+					<h:outputText rendered="#{empty ticketController.ticket.developer}"
+									value="/" />
+					
+					<h:outputText value="#{msg['showTicket.priority']}" styleClass="header" />
+					<h:outputText value="#{ticketController.ticket.priority}" />
+					
+					<h:outputText value="#{msg['showTicket.status']}" styleClass="header" />
+					<h:outputText value="#{ticketController.ticket.status}" />
+				</h:panelGrid>
+				<p>
+					<h:outputText value="#{ticketController.ticket.description}" />
+				</p>
+			</section>
+			<section id="comments">
+				<h5><h:outputText value="#{msg['showTicket.comments']}" /></h5>
+				<h:outputLink id="addCommentLink" value="#" styleClass="btn info" data-controls-modal="modal-from-dom" rendered="#{userController.authenticated}">
+					<h:outputText value="#{msg['showTicket.addComment']}" />
+				</h:outputLink>	
+				<c:forEach items="#{ticketController.ticket.comments}" var="comment">
+					<article class="comment">
+						<h:panelGrid columns="2">
+							<h:column>
+								<h:outputText value="#{msg['showTicket.comment.author']}" />
+								<h:outputText value="#{comment.author.firstName} 
+															#{comment.author.lastName}" />
+							</h:column>
+							<h:column>
+								<h:outputText value="#{msg['showTicket.comment.creationDate']}" />
+								<h:outputText value="#{comment.createdAt}">
+									<f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
+								</h:outputText>
+							</h:column>
+						</h:panelGrid>
+						<p>
+							<h:outputText value="#{comment.content}" />
+						</p>
+					</article>
+				</c:forEach>
+			</section>
+		</article>
+	</ui:define>
+
+</ui:composition>
