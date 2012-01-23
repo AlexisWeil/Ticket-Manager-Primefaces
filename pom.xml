@@ -250,11 +250,15 @@
                 <version>1.0.7</version>
                 <executions>
                     <execution>
-                        <id>generate-rebel-xml</id>
+                        <id>generate</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <configuration>
+                            <relativePath>../</relativePath>
+                            <rootPath>$${netbeansprojects.root}</rootPath>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

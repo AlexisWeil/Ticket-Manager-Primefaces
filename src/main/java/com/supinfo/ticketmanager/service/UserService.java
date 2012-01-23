@@ -29,7 +29,7 @@ import fr.bargenson.util.security.UserInfo;
 @Stateless
 public class UserService extends AbstractLoginModule implements Serializable {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private UserDao userDao;

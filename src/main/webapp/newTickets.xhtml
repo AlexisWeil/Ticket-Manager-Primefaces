@@ -59,7 +59,7 @@
             </p:column>
         </p:dataTable>
         
-        <h:panelGroup rendered#{!ticketController.newTicketsModel.rowAvailable}
+        <h:panelGroup rendered="#{!ticketController.newTicketsModel.rowAvailable}">
             <div class="alert-message warning">
                 <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
             </div>

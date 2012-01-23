@@ -7,7 +7,6 @@
                 <goal>clean</goal>
                 <goal>install</goal>
                 <goal>-X</goal>
-                <goal>jrebel:generate</goal>
                 <goal>jboss-as:deploy</goal>
             </goals>
             <properties>
