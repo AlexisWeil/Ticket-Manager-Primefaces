@@ -1,0 +1,38 @@
+
+
+ul.alert-message li {
+    color: white;
+    list-style: none;
+}
+.modal-body {
+    padding: 0px;
+}
+.modal-body form {
+    margin-bottom: 0px;
+}
+.modal-body div.actions {
+    margin-bottom: 0px;
+}
+.modal-body fieldset {
+    width: 100%;
+    margin-bottom: 0px;
+}
+.rf-msg-err, .rf-msgs-err, .rf-msg-ftl, .rf-msgs-ftl, .rf-msg-inf, 
+.rf-msgs-inf, .rf-msg-wrn, .rf-msgs-wrn, .rf-msg-ok, .rf-msgs-ok {
+
+    padding-top: 5px;
+}
+body {
+    margin: 10px;
+}
+
+.ui-message-error, .ui-message-info, .ui-message-warn {
+    border: none;
+    text-align: right;
+    padding: 5px;
+    background: none;
+}
+
+.ui-message-error-icon, .ui-message-info-icon, .ui-message-warn-icon { display: none; }
+
+.ui-message-error-detail:first-letter, .ui-message-info-detail:first-letter, .ui-message-warn-detail:first-letter { text-transform: uppercase; }

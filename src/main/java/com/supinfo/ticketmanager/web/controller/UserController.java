@@ -24,16 +24,16 @@ import fr.bargenson.util.faces.ControllerHelper;
 @RequestScoped
 public class UserController implements Serializable {
 	
-	protected static final String LOGIN_SUCCEED_OUTCOME = "newTickets?faces-redirect=true";
-	protected static final String LOGIN_FAILED_OUTCOME = null;
-	protected static final String LOGOUT_OUTCOME = "login";
-	
-	
-	@Inject
-	private ControllerHelper controllerHelper;
-	
-	@Inject
-	private UserService userService;
+    protected static final String LOGIN_SUCCEED_OUTCOME = "newTickets?faces-redirect=true";
+    protected static final String LOGIN_FAILED_OUTCOME = null;
+    protected static final String LOGOUT_OUTCOME = "login";
+
+
+    @Inject
+    private ControllerHelper controllerHelper;
+
+    @Inject
+    private UserService userService;
 	
     @NotBlank(message="Username is required")
     private String username;

@@ -51,11 +51,13 @@ public class TicketController implements Serializable {
 	}
 	
 	public String addTicket() {
-		String username = controllerHelper.getUserPrincipal().getName();
-		ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
-		ticket.setReporter(reporter);
-		ticketService.addTicket(ticket);
-		return ADD_TICKET_OUTCOME;
+            System.out.println("\n\n\n\nHELLO\n\n\n\n");
+            String username = controllerHelper.getUserPrincipal().getName();
+            ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
+            ticket.setReporter(reporter);
+            ticketService.addTicket(ticket);
+                
+            return ADD_TICKET_OUTCOME;
 	}
 	
 	public List<SelectItem> getPriorityItems() {

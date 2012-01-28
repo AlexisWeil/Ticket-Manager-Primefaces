@@ -126,6 +126,11 @@
             <version>${version.primefaces}</version>
         </dependency>
         <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>home</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
@@ -281,7 +286,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>${version.findbugs-maven}</version>
@@ -296,7 +301,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
         <pluginManagement>
             <plugins>
