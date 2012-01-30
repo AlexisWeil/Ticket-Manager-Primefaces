@@ -7,8 +7,12 @@ import com.supinfo.ticketmanager.entity.TicketStatus;
 import com.supinfo.ticketmanager.service.TicketService;
 import com.supinfo.ticketmanager.service.UserService;
 import fr.bargenson.util.faces.ControllerHelper;
+import org.primefaces.component.dialog.Dialog;
 
-import javax.faces.bean.ViewScoped;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -20,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class TicketController implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
@@ -28,10 +32,10 @@ public class TicketController implements Serializable {
 	
 	protected static final String ADD_TICKET_OUTCOME = "newTickets?faces-redirect=true";
 
-	@Inject
+	@EJB
 	private TicketService ticketService;
 	
-	@Inject
+	@EJB
 	private UserService userService;
 	
 	@Inject
@@ -40,6 +44,13 @@ public class TicketController implements Serializable {
 	private Ticket ticket;
 	private transient DataModel<Ticket> newTicketsModel;
 	private transient List<SelectItem> priorityItems;
+    
+    private boolean dialogAddTicketOpen;
+
+    @PostConstruct
+    public void init() {
+        ticket = new Ticket();
+    }
 	
 	public DataModel<Ticket> getNewTicketsModel() {
 		if(newTicketsModel == null) {
@@ -48,14 +59,26 @@ public class TicketController implements Serializable {
 		return newTicketsModel;
 	}
 	
-	public String addTicket() {
-        System.out.println("\n\n\n\nPOUET\n\n\n\n");
+	public String addTicket() throws Exception {
+        Dialog dialogAddTicket = (Dialog) FacesContext.getCurrentInstance().getViewRoot().findComponent("dialogAddTicket");
+        dialogAddTicket.setVisible(true);
+
         String username = controllerHelper.getUserPrincipal().getName();
         ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
+
         ticket.setReporter(reporter);
-        ticketService.addTicket(ticket);
-                
-//            return ADD_TICKET_OUTCOME;
+
+        try {
+            ticketService.addTicket(ticket);
+
+            dialogAddTicket.setVisible(false);
+        }
+        catch(Exception ex) {
+            dialogAddTicket.setVisible(true);
+
+            throw ex;
+        }
+
         return null;
 	}
 	
@@ -71,14 +94,18 @@ public class TicketController implements Serializable {
 	}
 
 	public Ticket getTicket() {
-		if(ticket == null) {
-			ticket = new Ticket();
-		}
 		return ticket;
 	}
 	
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
+
+    public boolean isDialogAddTicketOpen() {
+        return dialogAddTicketOpen;
+    }
+
+    public void setDialogAddTicketOpen(boolean dialogAddTicketOpen) {
+        this.dialogAddTicketOpen = dialogAddTicketOpen;
+    }
 }

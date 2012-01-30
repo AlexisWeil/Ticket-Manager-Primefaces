@@ -3,3 +3,4 @@
 .settings
 target
 deployments/
+src/main/resources/rebel.xml

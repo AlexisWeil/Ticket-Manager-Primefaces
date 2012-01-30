@@ -19,7 +19,7 @@
         <version.jsfunit>2.0.0.Beta2</version.jsfunit>
         <version.arquillian.glassfish>1.0.0.CR1</version.arquillian.glassfish>
         <version.richfaces>4.0.0.Final</version.richfaces>
-        <version.primefaces>3.0.RC1</version.primefaces>
+        <version.primefaces>3.0</version.primefaces>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.findbugs-maven>2.3.2</version.findbugs-maven>
         <version.jboss>7.0.1.Final</version.jboss>
@@ -39,6 +39,13 @@
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
             </snapshots>
+        </repository>
+
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
         </repository>
     </repositories>
     <pluginRepositories>

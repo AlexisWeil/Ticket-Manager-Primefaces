@@ -39,10 +39,16 @@
                         id="submit"
                         styleClass="btn primary"
                         actionListener="#{ticketController.addTicket}"
-                        ajax="true"
                         value="#{msg['addTicket.submit']}"
-                        update="dialogAddTicket" />
+                        immediate="true"
+                        update="formAddTicket, dialogAddTicket" />
 		</div>
+
+        <h:panelGroup id="scriptDialogAddTicket" rendered="false">
+            <script type="text/javascript">
+                alert("hello");
+            </script>
+        </h:panelGroup>
 	</fieldset>
     </h:panelGroup>
 </h:form>
