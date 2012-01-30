@@ -1,28 +1,26 @@
 package com.supinfo.ticketmanager.web.controller;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javax.enterprise.context.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.SelectItem;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.supinfo.ticketmanager.entity.ProductOwner;
 import com.supinfo.ticketmanager.entity.Ticket;
 import com.supinfo.ticketmanager.entity.TicketPriority;
 import com.supinfo.ticketmanager.entity.TicketStatus;
 import com.supinfo.ticketmanager.service.TicketService;
 import com.supinfo.ticketmanager.service.UserService;
-
 import fr.bargenson.util.faces.ControllerHelper;
 
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 @Named
-@RequestScoped
+@ViewScoped
 public class TicketController implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
@@ -51,13 +49,14 @@ public class TicketController implements Serializable {
 	}
 	
 	public String addTicket() {
-            System.out.println("\n\n\n\nHELLO\n\n\n\n");
-            String username = controllerHelper.getUserPrincipal().getName();
-            ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
-            ticket.setReporter(reporter);
-            ticketService.addTicket(ticket);
+        System.out.println("\n\n\n\nPOUET\n\n\n\n");
+        String username = controllerHelper.getUserPrincipal().getName();
+        ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
+        ticket.setReporter(reporter);
+        ticketService.addTicket(ticket);
                 
-            return ADD_TICKET_OUTCOME;
+//            return ADD_TICKET_OUTCOME;
+        return null;
 	}
 	
 	public List<SelectItem> getPriorityItems() {

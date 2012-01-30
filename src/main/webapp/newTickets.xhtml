@@ -64,52 +64,6 @@
                 <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
             </div>
         </h:panelGroup>
-        
-        <c:choose>
-            <c:when test="#{ticketController.newTicketsModel.rowAvailable}">
-                <h:dataTable value="#{ticketController.newTicketsModel}" var="t" styleClass="zebra-striped sortable">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{msg['newTickets.id']}" />
-                        </f:facet>
-                        <h:outputLink value="showTicket.jsf?ticketId=#{t.id}">
-                            <h:outputText value="##{t.id}" />
-                        </h:outputLink>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{msg['newTickets.summary']}" />
-                        </f:facet>
-                        <h:outputText value="#{t.summary}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{msg['newTickets.priority']}" />
-                        </f:facet>
-                        <h:outputText value="#{msg[t.priority.bundleKey]}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{msg['newTickets.reporter']}" />
-                        </f:facet>
-                        <h:outputText value="#{t.reporter.firstName} #{t.reporter.lastName}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{msg['newTickets.creationDate']}" />
-                        </f:facet>
-                        <h:outputText value="#{t.createdAt}">
-                            <f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
-                        </h:outputText>
-                    </h:column>
-                </h:dataTable>
-            </c:when>
-            <c:otherwise>
-                <div class="alert-message warning">
-                    <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
-                </div>
-            </c:otherwise>
-        </c:choose>
     </ui:define>
 
 </ui:composition>
