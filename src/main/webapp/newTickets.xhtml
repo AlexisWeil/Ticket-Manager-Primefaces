@@ -18,52 +18,102 @@
     <ui:define name="title"><h:outputText value="#{msg['newTickets.page.title']}" /></ui:define>
 
     <ui:define name="content">
-        <p:dataTable
-            value="#{ticketController.newTicketsModel}"
-            var="t"
-            rendered="#{ticketController.newTicketsModel.rowAvailable}">
-            <p:column
-                sortBy="#{t.id}">
+        <h:form prependId="false">
+            <p:dataTable
+                    id="newTicketsTable"
+                    value="#{ticketController.newTickets}"
+                    var="t"
+                    rendered="#{ticketController.newTicketsModel.rowAvailable}"
+                    styleClass="zebra-striped sortable">
+                <p:column
+                        sortBy="#{t.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['newTickets.id']}" />
+                    </f:facet>
+                    <h:outputLink value="showTicket.jsf?ticketId=#{t.id}">
+                        <h:outputText value="##{t.id}" />
+                    </h:outputLink>
+                </p:column>
+
+                <p:column
+                        sortBy="#{t.summary}"
+                        filterBy="#{t.summary}"
+                        filterMatchMode="contains">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['newTickets.summary']}" />
+                    </f:facet>
+                    <h:outputText value="#{t.summary}" />
+                </p:column>
+
+                <p:column
+                        sortBy="#{t.priority}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['newTickets.priority']}" />
+                    </f:facet>
+                    <h:outputText value="#{msg[t.priority.bundleKey]}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['newTickets.reporter']}" />
+                    </f:facet>
+                    <h:outputText value="#{t.reporter.firstName} #{t.reporter.lastName}" />
+                </p:column>
+
+                <p:column
+                        sortBy="#{t.createdAt}">
+                    <f:facet name="header">
+                        <h:outputText value="#{msg['newTickets.creationDate']}" />
+                    </f:facet>
+                    <h:outputText value="#{t.createdAt}">
+                        <f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+
+            <h:panelGroup rendered="#{!ticketController.newTicketsModel.rowAvailable}">
+                <div class="alert-message warning">
+                    <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
+                </div>
+            </h:panelGroup>
+        </h:form>
+
+        <h:dataTable value="#{ticketController.newTicketsModel}" var="t" styleClass="zebra-striped sortable">
+            <h:column>
                 <f:facet name="header">
                     <h:outputText value="#{msg['newTickets.id']}" />
                 </f:facet>
                 <h:outputLink value="showTicket.jsf?ticketId=#{t.id}">
                     <h:outputText value="##{t.id}" />
                 </h:outputLink>
-            </p:column>
-            
-            <p:column
-                sortBy="#{t.summary}">
+            </h:column>
+            <h:column>
                 <f:facet name="header">
                     <h:outputText value="#{msg['newTickets.summary']}" />
                 </f:facet>
                 <h:outputText value="#{t.summary}" />
-            </p:column>
-            
-            <p:column
-                sortBy="#{t.reporter.firstName} #{t.reporter.lastName}">
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{msg['newTickets.priority']}" />
+                </f:facet>
+                <h:outputText value="#{msg[t.priority.bundleKey]}"/>
+            </h:column>
+            <h:column>
                 <f:facet name="header">
                     <h:outputText value="#{msg['newTickets.reporter']}" />
                 </f:facet>
                 <h:outputText value="#{t.reporter.firstName} #{t.reporter.lastName}" />
-            </p:column>
-            
-            <p:column
-                sortBy="#{t.createdAt}">
+            </h:column>
+            <h:column>
                 <f:facet name="header">
                     <h:outputText value="#{msg['newTickets.creationDate']}" />
                 </f:facet>
                 <h:outputText value="#{t.createdAt}">
                     <f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
                 </h:outputText>
-            </p:column>
-        </p:dataTable>
-        
-        <h:panelGroup rendered="#{!ticketController.newTicketsModel.rowAvailable}">
-            <div class="alert-message warning">
-                <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
-            </div>
-        </h:panelGroup>
+            </h:column>
+        </h:dataTable>
     </ui:define>
 
 </ui:composition>
