@@ -17,21 +17,6 @@
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 	</security-constraint>
-        
-        <context-param>   
-            <param-name>primefaces.THEME</param-name>
-            <param-value>home</param-value> 
-        </context-param>
-
-	<context-param>
-		<param-name>org.richfaces.skin</param-name>
-		<param-value>plain</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>org.richfaces.enableControlSkinning</param-name>
-		<param-value>false</param-value>
-	</context-param>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

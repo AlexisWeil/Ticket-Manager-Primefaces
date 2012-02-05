@@ -6,10 +6,13 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <meta charset="UTF-8" />
-        <title>TicketManager - <ui:insert name="title" /></title>
-        <meta name="description" content="A simple webapp for SUPINFO students." />
-        <meta name="author" content="@bargenson" />
+        <f:facet name="first">
+            <meta charset="UTF-8" />
+            <title>TicketManager - <ui:insert name="title" /></title>
+            <meta name="description" content="A simple webapp for SUPINFO students." />
+            <meta name="author" content="@bargenson" />
+        </f:facet>
+
         <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/styles/style.css" />
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-1.6.2.min.js"></script>	
@@ -35,14 +38,17 @@
                                 </h:outputLink>
                             </li>
                             <li>
-                                <h:outputLink 
-                                    id="addTicketLink" 
-                                    value="#"
-                                    rendered="#{userController.productOwner}"
-                                    onclick="dialogAddTicket.show();">
-                                    
-                                    #{msg['template.main.menu.addTicket']}
-                                </h:outputLink>
+                                <h:panelGroup
+                                    rendered="#{userController.productOwner}">
+                                    <h:form>
+                                        <p:commandLink
+                                            id="addTicketLink"
+                                            value="#{msg['template.main.menu.addTicket']}"
+                                            onclick="dialogAddTicket.show();"
+                                            actionListener="#{ticketController.openAddTicketDialog}"
+                                            ajax="true" />
+                                    </h:form>
+                                </h:panelGroup>
                             </li>
                         </ul>
                         <h:form class="pull-left">
@@ -86,12 +92,13 @@
         </div>-->
         
         <p:dialog
-            modal="true"
             resizable="false"
             width="400"
             widgetVar="dialogAddTicket"
-            draggable="false"
-            id="dialogAddTicket">
+            draggable="true"
+            id="dialogAddTicket"
+            visible="#{ticketController.dialogAddTicketOpen}"
+            onHide="dialogClosed();">
             <ui:include src="#{servletContext.contextPath}/_addTicket.xhtml" />
         </p:dialog>
 

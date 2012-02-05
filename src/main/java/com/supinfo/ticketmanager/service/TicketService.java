@@ -1,15 +1,14 @@
 package com.supinfo.ticketmanager.service;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
 import com.supinfo.ticketmanager.dao.TicketDao;
 import com.supinfo.ticketmanager.entity.Ticket;
 import com.supinfo.ticketmanager.entity.TicketStatus;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,5 +36,8 @@ public class TicketService implements Serializable {
 	public Ticket findTicketById(Long ticketId) {
 		return ticketDao.findTicketWithCommentsById(ticketId);
 	}
-
+    
+    public List<Ticket> getAllTickets() {
+        return ticketDao.getAllTickets();
+    }
 }

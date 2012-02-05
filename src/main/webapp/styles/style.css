@@ -36,3 +36,21 @@ body {
 .ui-message-error-icon, .ui-message-info-icon, .ui-message-warn-icon { display: none; }
 
 .ui-message-error-detail:first-letter, .ui-message-info-detail:first-letter, .ui-message-warn-detail:first-letter { text-transform: uppercase; }
+
+.ui-dialog-titlebar { background-color: transparent; }
+fieldset legend { padding-left: 0px; text-align: center; }
+div.submit { text-align: center; }
+
+.ui-button-text-only .ui-button-text { padding: 0px; }
+
+.ui-widget-content a { color: #0069D6; }
+
+/*** DATATABLE ***/
+.ui-datatable .ui-widget-content { background: white; }
+.ui-datatable .ui-widget-content, .ui-datatable .ui-state-default { color: #404040; }
+.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td, .ui-datatable th, .ui-datatable tfoot td { padding: 10px 10px 9px; }
+.ui-datatable th { background: white; border: none; border-left: 1px solid #DDD; }
+.ui-datatable th.ui-state-hover { box-shadow: none; color: #0069D6; }
+.ui-datatable th.ui-state-active { background: #F9F9F9; color: #0069D6; }
+.ui-datatable .ui-widget-content { border: 1px solid #DDD; }
+

@@ -10,20 +10,21 @@ import fr.bargenson.util.faces.ControllerHelper;
 import org.primefaces.component.dialog.Dialog;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.Conversation;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Named
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class TicketController implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
@@ -33,22 +34,29 @@ public class TicketController implements Serializable {
 
 	@Inject
 	private TicketService ticketService;
-	
+
 	@Inject
 	private UserService userService;
-	
+
 	@Inject
 	private ControllerHelper controllerHelper;
+
+    @Inject
+    private Conversation conversation;
 	
 	private Ticket ticket;
 	private transient DataModel<Ticket> newTicketsModel;
+    private List<Ticket> newTickets;
 	private transient List<SelectItem> priorityItems;
     
     private boolean dialogAddTicketOpen;
 
     @PostConstruct
     public void init() {
+        System.out.println("lala");
         ticket = new Ticket();
+//        newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
+        newTickets = ticketService.getAllTickets();
     }
 	
 	public DataModel<Ticket> getNewTicketsModel() {
@@ -57,6 +65,14 @@ public class TicketController implements Serializable {
 		}
 		return newTicketsModel;
 	}
+    
+    public void openAddTicketDialog() {
+        System.out.println("isOpen ! " + dialogAddTicketOpen);
+
+        dialogAddTicketOpen = true;
+
+        conversation.begin();
+    }
 	
 	public String addTicket() throws Exception {
         Dialog dialogAddTicket = (Dialog) FacesContext.getCurrentInstance().getViewRoot().findComponent("dialogAddTicket");
@@ -67,16 +83,11 @@ public class TicketController implements Serializable {
 
         ticket.setReporter(reporter);
 
-        try {
-            ticketService.addTicket(ticket);
+        ticketService.addTicket(ticket);
 
-            dialogAddTicket.setVisible(false);
-        }
-        catch(Exception ex) {
-            dialogAddTicket.setVisible(true);
+        dialogAddTicketOpen = false;
 
-            throw ex;
-        }
+        conversation.end();
 
         return null;
 	}
@@ -106,5 +117,14 @@ public class TicketController implements Serializable {
 
     public void setDialogAddTicketOpen(boolean dialogAddTicketOpen) {
         this.dialogAddTicketOpen = dialogAddTicketOpen;
+    }
+
+    public List<Ticket> getNewTickets() {
+        System.out.println(newTickets.size());
+        return newTickets;
+    }
+
+    public void setNewTickets(List<Ticket> newTickets) {
+        this.newTickets = newTickets;
     }
 }

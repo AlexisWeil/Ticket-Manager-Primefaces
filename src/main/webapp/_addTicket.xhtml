@@ -2,49 +2,47 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui"
-        prependId="false">
+    xmlns:p="http://primefaces.org/ui"
+    prependId="false">
 	
     <h:panelGroup id="formAddTicket">
 	<fieldset>
 		<legend><h:outputText value="#{msg['addTicket.legend']}" /></legend>
 		<div class="clearfix">
-                    <h:outputLabel for="summary" value="#{msg['addTicket.summary']}" />
-                    <div class="input">
-                        <h:inputText id="summary" value="#{ticketController.ticket.summary}" />
-                    </div>
-                    
-                    <p:message for="summary" />
-		</div>
-		<div class="clearfix">
-                    <h:outputLabel for="description" value="#{msg['addTicket.description']}" />
-                    <div class="input">
-                        <h:inputTextarea id="description" value="#{ticketController.ticket.description}" />
-                    </div>
-                    
-                    <p:message for="description" />
-		</div>
-		<div class="clearfix">
-                    <h:outputLabel for="priority" value="#{msg['addTicket.priority']}" />
-                    <div class="input">
-                        <h:selectOneMenu id="priority" value="#{ticketController.ticket.priority}">
-                            <f:selectItems value="#{ticketController.priorityItems}" var="p" />
-                        </h:selectOneMenu>
-                    </div>
-                    
-                    <p:message for="priority" />
-		</div>
-		<div>                    
-                    <p:commandButton
-                        id="submit"
-                        styleClass="btn primary"
-                        actionListener="#{ticketController.addTicket}"
-                        value="#{msg['addTicket.submit']}"
-                        immediate="true"
-                        update="formAddTicket, dialogAddTicket" />
-		</div>
+            <h:outputLabel for="summary" value="#{msg['addTicket.summary']}" />
+            <div class="input">
+                <h:inputText id="summary" value="#{ticketController.ticket.summary}" />
+            </div>
 
-        <h:outputText value="Test : #{ticketAddController.test}" />
+            <p:message for="summary" />
+		</div>
+		<div class="clearfix">
+            <h:outputLabel for="description" value="#{msg['addTicket.description']}" />
+            <div class="input">
+                <h:inputTextarea id="description" value="#{ticketController.ticket.description}" />
+            </div>
+
+            <p:message for="description" />
+		</div>
+		<div class="clearfix">
+            <h:outputLabel for="priority" value="#{msg['addTicket.priority']}" />
+            <div class="input">
+                <h:selectOneMenu id="priority" value="#{ticketController.ticket.priority}">
+                    <f:selectItems value="#{ticketController.priorityItems}" var="p" />
+                </h:selectOneMenu>
+            </div>
+
+            <p:message for="priority" />
+		</div>
+		<div class="submit">
+            <p:commandButton
+                id="submit"
+                styleClass="btn primary"
+                actionListener="#{ticketController.addTicket}"
+                value="#{msg['addTicket.submit']}"
+                immediate="false"
+                update="dialogAddTicket" />
+		</div>
 	</fieldset>
     </h:panelGroup>
 </h:form>
