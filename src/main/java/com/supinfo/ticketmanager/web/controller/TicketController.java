@@ -10,7 +10,6 @@ import fr.bargenson.util.faces.ControllerHelper;
 import org.primefaces.component.dialog.Dialog;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -32,10 +31,10 @@ public class TicketController implements Serializable {
 	
 	protected static final String ADD_TICKET_OUTCOME = "newTickets?faces-redirect=true";
 
-	@EJB
+	@Inject
 	private TicketService ticketService;
 	
-	@EJB
+	@Inject
 	private UserService userService;
 	
 	@Inject
