@@ -29,7 +29,6 @@ public class TicketController implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
 	
-	
 	protected static final String ADD_TICKET_OUTCOME = "newTickets?faces-redirect=true";
 
 	@Inject
@@ -55,8 +54,8 @@ public class TicketController implements Serializable {
     public void init() {
         System.out.println("lala");
         ticket = new Ticket();
-//        newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
-        newTickets = ticketService.getAllTickets();
+        newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
+//        newTickets = ticketService.getAllTickets();
     }
 	
 	public DataModel<Ticket> getNewTicketsModel() {
