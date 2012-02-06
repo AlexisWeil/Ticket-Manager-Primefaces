@@ -36,7 +36,9 @@
                 </p:column>
 
                 <p:column
-                        sortBy="#{t.summary}">
+                        sortBy="#{t.summary}"
+                        filterBy="#{t.summary}"
+                        filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="#{msg['newTickets.summary']}" />
                     </f:facet>
@@ -44,7 +46,10 @@
                 </p:column>
 
                 <p:column
-                        sortBy="#{t.priority}">
+                        sortBy="#{t.priority}"
+                        filterBy="#{t.priority}"
+                        filterOptions="#{ticketController.priorityItems}"
+                        filterMatchMode="exact">
                     <f:facet name="header">
                         <h:outputText value="#{msg['newTickets.priority']}" />
                     </f:facet>
@@ -52,7 +57,10 @@
                 </p:column>
 
                 <p:column
-                        sortBy="#{t.reporter.lastName} #{t.reporter.firstName}">
+                        sortBy="#{t.reporter.lastName} #{t.reporter.firstName}"
+                        filterBy="#{t.reporter}"
+                        filterOptions="#{ticketController.productOwnersItems}"
+                        filterMatchMode="exact">
                     <f:facet name="header">
                         <h:outputText value="#{msg['newTickets.reporter']}" />
                     </f:facet>

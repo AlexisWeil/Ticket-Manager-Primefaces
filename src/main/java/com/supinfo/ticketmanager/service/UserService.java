@@ -1,24 +1,21 @@
 package com.supinfo.ticketmanager.service;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.supinfo.ticketmanager.dao.UserDao;
 import com.supinfo.ticketmanager.entity.Developer;
 import com.supinfo.ticketmanager.entity.ProductOwner;
 import com.supinfo.ticketmanager.entity.User;
 import com.supinfo.ticketmanager.security.UserRole;
-
 import fr.bargenson.util.crypto.MD5Digester;
 import fr.bargenson.util.security.AbstractLoginModule;
 import fr.bargenson.util.security.UserInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -73,4 +70,7 @@ public class UserService extends AbstractLoginModule implements Serializable {
 		return userDao.addUser(user);
 	}
     
+    public List<ProductOwner> findAllProductOwners() {
+        return userDao.getAllProductOwners();
+    }
 }

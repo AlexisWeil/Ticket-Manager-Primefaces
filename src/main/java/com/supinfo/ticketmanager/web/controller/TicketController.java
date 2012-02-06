@@ -10,7 +10,6 @@ import fr.bargenson.util.faces.ControllerHelper;
 import org.primefaces.component.dialog.Dialog;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -39,23 +38,32 @@ public class TicketController implements Serializable {
 
 	@Inject
 	private ControllerHelper controllerHelper;
-
-    @Inject
-    private Conversation conversation;
 	
 	private Ticket ticket;
 	private transient DataModel<Ticket> newTicketsModel;
     private List<Ticket> newTickets;
-	private transient List<SelectItem> priorityItems;
+	private List<SelectItem> priorityItems;
+    private List<SelectItem> productOwnersItems;
     
     private boolean dialogAddTicketOpen;
 
     @PostConstruct
     public void init() {
-        System.out.println("lala");
         ticket = new Ticket();
         newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
-//        newTickets = ticketService.getAllTickets();
+
+        ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
+        priorityItems = new ArrayList<SelectItem>();
+        priorityItems.add(new SelectItem("", "All"));
+        for (TicketPriority priority : TicketPriority.values()) {
+            priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
+        }
+        
+        productOwnersItems = new ArrayList<SelectItem>();
+        productOwnersItems.add(new SelectItem("", "All"));
+        for(ProductOwner p : userService.findAllProductOwners()) {
+            productOwnersItems.add(new SelectItem(p, p.getLastName() + " " + p.getFirstName()));
+        }
     }
 	
 	public DataModel<Ticket> getNewTicketsModel() {
@@ -69,8 +77,6 @@ public class TicketController implements Serializable {
         System.out.println("isOpen ! " + dialogAddTicketOpen);
 
         dialogAddTicketOpen = true;
-
-        conversation.begin();
     }
 	
 	public String addTicket() throws Exception {
@@ -86,19 +92,10 @@ public class TicketController implements Serializable {
 
         dialogAddTicketOpen = false;
 
-        conversation.end();
-
         return null;
 	}
 	
 	public List<SelectItem> getPriorityItems() {
-		if(priorityItems == null) {
-			ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
-			priorityItems = new ArrayList<SelectItem>();
-			for (TicketPriority priority : TicketPriority.values()) {
-				priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
-			}
-		}
 		return priorityItems;
 	}
 
@@ -119,11 +116,18 @@ public class TicketController implements Serializable {
     }
 
     public List<Ticket> getNewTickets() {
-        System.out.println(newTickets.size());
         return newTickets;
     }
 
     public void setNewTickets(List<Ticket> newTickets) {
         this.newTickets = newTickets;
+    }
+
+    public List<SelectItem> getProductOwnersItems() {
+        return productOwnersItems;
+    }
+
+    public void setProductOwnersItems(List<SelectItem> productOwnersItems) {
+        this.productOwnersItems = productOwnersItems;
     }
 }
