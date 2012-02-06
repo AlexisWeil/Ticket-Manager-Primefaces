@@ -23,8 +23,7 @@
                     id="newTicketsTable"
                     value="#{ticketController.newTickets}"
                     var="t"
-                    rendered="#{ticketController.newTicketsModel.rowAvailable}"
-                    styleClass="zebra-striped sortable">
+                    rendered="#{ticketController.newTicketsModel.rowAvailable}">
                 <p:column
                         sortBy="#{t.id}">
                     <f:facet name="header">

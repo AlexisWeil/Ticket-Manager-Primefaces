@@ -13,66 +13,60 @@
             <meta name="author" content="@bargenson" />
         </f:facet>
 
-        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
+        <!--<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />-->
+        <!--<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/styles/reset.css" />-->
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/styles/style.css" />
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-1.6.2.min.js"></script>	
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-1.6.2.min.js"></script>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-ui-1.8.16.min.js"></script>
         
         <ui:insert name="head" />
     </h:head>
 
     <h:body>
-        <header class="topbar-wrapper" style="z-index: 5;">
-            <div class="topbar" data-dropdown="dropdown">
-                <div class="topbar-inner">
-                    <div class="container">
-                        <h3>
-                            <h:outputLink value="#{facesContext.externalContext.requestContextPath}/">
-                                <h:outputText value="#{msg['template.main.projectName']}" />
-                            </h:outputLink>
-                        </h3>
-                        <ul class="nav">
-                            <li>
-                                <h:outputLink value="newTickets.jsf">
-                                    <h:outputText value="#{msg['template.main.menu.newTickets']}" />
-                                </h:outputLink>
-                            </li>
-                            <li>
-                                <h:panelGroup
-                                    rendered="#{userController.productOwner}">
-                                    <h:form>
-                                        <p:commandLink
-                                            id="addTicketLink"
-                                            value="#{msg['template.main.menu.addTicket']}"
-                                            onclick="dialogAddTicket.show();"
-                                            actionListener="#{ticketController.openAddTicketDialog}"
-                                            ajax="true" />
-                                    </h:form>
-                                </h:panelGroup>
-                            </li>
-                        </ul>
-                        <ul class="nav secondary-nav">
-                            <li>
-                                <h:outputLink 
-                                    value="login.jsf"
-                                    rendered="#{not userController.authenticated}">
-                                    <h:outputText value="#{msg['template.main.menu.login']}" />
-                                </h:outputLink>
-                            </li>
-                            <li>
-                                <h:form rendered="#{userController.authenticated}">
-                                    <h:commandLink 
-                                        action="#{userController.logout}"
-                                        value="#{msg['template.main.menu.logout']}" />
-                                </h:form>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        <header>
+            <div>
+                <h3>
+                    <h:outputLink value="#{facesContext.externalContext.requestContextPath}/">
+                        <h:outputText value="#{msg['template.main.projectName']}" />
+                    </h:outputLink>
+                </h3>
+                <ul class="nav">
+                    <li>
+                        <h:outputLink value="newTickets.jsf">
+                            <h:outputText value="#{msg['template.main.menu.newTickets']}" />
+                        </h:outputLink>
+                    </li>
+                    <li>
+                            <h:form rendered="#{userController.productOwner}">
+                                <p:commandLink
+                                    id="addTicketLink"
+                                    value="#{msg['template.main.menu.addTicket']}"
+                                    onclick="dialogAddTicket.show();"
+                                    actionListener="#{ticketController.openAddTicketDialog}"
+                                    ajax="true" />
+                            </h:form>
+                    </li>
+                </ul>
+                <ul class="nav secondary-nav">
+                    <li>
+                        <h:outputLink
+                            value="login.jsf"
+                            rendered="#{not userController.authenticated}">
+                            <h:outputText value="#{msg['template.main.menu.login']}" />
+                        </h:outputLink>
+                    </li>
+                    <li>
+                        <h:form rendered="#{userController.authenticated}">
+                            <h:commandLink
+                                action="#{userController.logout}"
+                                value="#{msg['template.main.menu.logout']}" />
+                        </h:form>
+                    </li>
+                </ul>
             </div>
         </header>
 
-        <section style="margin-top: 80px;">
+        <section id="Corps">
             <p:growl id="growlMessages" />
             <ui:insert name="content" />
         </section>

@@ -1,4 +1,55 @@
 
+* { margin: 0px; padding: 0px; }
+
+html {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+
+/*** HEADER ***/
+header {
+    height: 40px;
+    line-height: 40px;
+
+    background-color:#222;
+    background-color:#222222;
+    background-repeat:repeat-x;
+    background-image:-khtml-gradient(linear, left top, left bottom, from(#333333), to(#222222));
+    background-image:-moz-linear-gradient(top, #333333, #222222);
+    background-image:-ms-linear-gradient(top, #333333, #222222);
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #222222));
+    background-image:-webkit-linear-gradient(top, #333333, #222222);
+    background-image:-o-linear-gradient(top, #333333, #222222);
+    background-image:linear-gradient(top, #333333, #222222);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
+    -webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.25),inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+header * { color: white; text-decoration: none; }
+header > div { width: 1000px; margin-left: auto; margin-right: auto; }
+
+header h3 {
+    font-size: 1.2em;
+    float: left;
+    padding: 0px 10px;
+}
+header h3:hover { background: #444; }
+
+header ul.nav li { float: left; list-style-type: none; margin: 0px 10px; }
+header ul.nav li a { color: #999; }
+header ul.nav li a:hover { color: white; }
+
+header ul.secondary-nav { float: right; }
+
+
+/*** CORPS ***/
+section#Corps {
+    width: 1000px;
+    margin: 80px auto 0px auto;
+}
 
 ul.alert-message li {
     color: white;
@@ -22,9 +73,6 @@ ul.alert-message li {
 
     padding-top: 5px;
 }
-body {
-    margin: 10px;
-}
 
 .ui-message-error, .ui-message-info, .ui-message-warn {
     border: none;
@@ -37,20 +85,7 @@ body {
 
 .ui-message-error-detail:first-letter, .ui-message-info-detail:first-letter, .ui-message-warn-detail:first-letter { text-transform: uppercase; }
 
-.ui-dialog-titlebar { background-color: transparent; }
+.ui-dialog-titlebar { background-image: none; background-color: transparent; }
 fieldset legend { padding-left: 0px; text-align: center; }
 div.submit { text-align: center; }
-
-.ui-button-text-only .ui-button-text { padding: 0px; }
-
-.ui-widget-content a { color: #0069D6; }
-
-/*** DATATABLE ***/
-.ui-datatable .ui-widget-content { background: white; }
-.ui-datatable .ui-widget-content, .ui-datatable .ui-state-default { color: #404040; }
-.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td, .ui-datatable th, .ui-datatable tfoot td { padding: 10px 10px 9px; }
-.ui-datatable th { background: white; border: none; border-left: 1px solid #DDD; }
-.ui-datatable th.ui-state-hover { box-shadow: none; color: #0069D6; }
-.ui-datatable th.ui-state-active { background: #F9F9F9; color: #0069D6; }
-.ui-datatable .ui-widget-content { border: 1px solid #DDD; }
 
