@@ -10,12 +10,57 @@ body { background-color: #F3F3F3; color: #444; }
 
 h1.legend { text-align: center; font-size: 2em; color: #555; margin-bottom: 20px; }
 
+.clear { clear: both; }
+.floatRight { float: right; }
+.floatLeft { float: left; }
+
+
+/*** DIVERS ***/
+
+ul.alert-message li {
+    color: white;
+    list-style: none;
+}
+.modal-body {
+    padding: 0px;
+}
+.modal-body form {
+    margin-bottom: 0px;
+}
+.modal-body div.actions {
+    margin-bottom: 0px;
+}
+.modal-body fieldset {
+    width: 100%;
+    margin-bottom: 0px;
+}
+.rf-msg-err, .rf-msgs-err, .rf-msg-ftl, .rf-msgs-ftl, .rf-msg-inf,
+.rf-msgs-inf, .rf-msg-wrn, .rf-msgs-wrn, .rf-msg-ok, .rf-msgs-ok {
+
+    padding-top: 5px;
+}
+
+.ui-message-error, .ui-message-info, .ui-message-warn {
+    border: none;
+    text-align: right;
+    padding: 5px;
+    background: none;
+}
+
+.ui-message-error-icon, .ui-message-info-icon, .ui-message-warn-icon { display: none; }
+
+.ui-message-error-detail:first-letter, .ui-message-info-detail:first-letter, .ui-message-warn-detail:first-letter { text-transform: uppercase; }
+
+.ui-dialog-titlebar { background-image: none; background-color: transparent; }
+fieldset legend { padding-left: 0px; text-align: center; }
+div.submit { text-align: center; }
+
 
 /*** HEADER ***/
 header {
     height: 40px;
     line-height: 40px;
-    font-weight: 1.1em;
+    font-size: 1.1em;
 
     background-color:#222;
     background-color:#222222;
@@ -72,53 +117,21 @@ footer { padding: 30px; text-align: center; }
 /*** FORMS ***/
 div#LoginForm { width: 400px; margin: 30px auto; }
 
-div.clearfix { width: 350px; line-height: 32px; margin: 15px; }
+div.clearfix { width: 100%; line-height: 32px; padding-bottom: 15px; }
 div.clearfix label { font-size: 1.2em; }
+
 div.clearfix input {
     float: right;
     line-height: 30px;
     padding-bottom: 0px;
     padding-top: 0px;
 }
+div.clearfix textarea { float: right; }
+div.clearfix .ui-selectonemenu { float: right; width: 150px !important; }
+div.clearfix .ui-selectonemenu .ui-selectonemenu-label { padding-bottom: 0px; padding-top: 0px; }
+div.clearfix .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon { position: relative; top: 50%; margin-top: -8px; }
 
-div.actions { width: 350px; text-align: center; }
-div.actions .ui-button .ui-button-text { padding: 0px 20px; line-height: 2.4em; font-size: 1.4em; }
+div.actions { width: 100%; text-align: center; padding-top: 15px; }
+div.actions .ui-button .ui-button-text { padding: 0px 40px; line-height: 2.2em; font-size: 1.3em; }
 
-ul.alert-message li {
-    color: white;
-    list-style: none;
-}
-.modal-body {
-    padding: 0px;
-}
-.modal-body form {
-    margin-bottom: 0px;
-}
-.modal-body div.actions {
-    margin-bottom: 0px;
-}
-.modal-body fieldset {
-    width: 100%;
-    margin-bottom: 0px;
-}
-.rf-msg-err, .rf-msgs-err, .rf-msg-ftl, .rf-msgs-ftl, .rf-msg-inf, 
-.rf-msgs-inf, .rf-msg-wrn, .rf-msgs-wrn, .rf-msg-ok, .rf-msgs-ok {
-
-    padding-top: 5px;
-}
-
-.ui-message-error, .ui-message-info, .ui-message-warn {
-    border: none;
-    text-align: right;
-    padding: 5px;
-    background: none;
-}
-
-.ui-message-error-icon, .ui-message-info-icon, .ui-message-warn-icon { display: none; }
-
-.ui-message-error-detail:first-letter, .ui-message-info-detail:first-letter, .ui-message-warn-detail:first-letter { text-transform: uppercase; }
-
-.ui-dialog-titlebar { background-image: none; background-color: transparent; }
-fieldset legend { padding-left: 0px; text-align: center; }
-div.submit { text-align: center; }
 

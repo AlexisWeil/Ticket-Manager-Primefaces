@@ -26,18 +26,19 @@ public class Ticket implements Serializable {
     @Id @GeneratedValue
     private Long id;
 
-    @NotBlank @Size(min = 4, max = 60)
+    @NotBlank(message = "Summary can't be empty")
+    @Size(min = 4, max = 60, message = "Summary's size must be between 4 and 60")
     private String summary;
 
     @Lob
-    @NotBlank
+    @NotBlank(message = "Description can't be empty")
     private String description;
 
-    @NotNull
+    @NotNull(message = "A ticket must have a priority")
     @Enumerated(EnumType.STRING)
     private TicketPriority priority;
 
-    @NotNull
+    @NotNull(message = "A ticket must have a status")
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
 

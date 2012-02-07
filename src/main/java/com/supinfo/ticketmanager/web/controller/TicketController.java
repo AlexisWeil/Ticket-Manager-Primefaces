@@ -76,12 +76,11 @@ public class TicketController implements Serializable {
 	}
     
     public void openAddTicketDialog() {
-        System.out.println("isOpen ! " + dialogAddTicketOpen);
-
         dialogAddTicketOpen = true;
     }
 	
 	public String addTicket() throws Exception {
+        System.out.println("Hello lol");
         Dialog dialogAddTicket = (Dialog) FacesContext.getCurrentInstance().getViewRoot().findComponent("dialogAddTicket");
         dialogAddTicket.setVisible(true);
 
@@ -103,6 +102,7 @@ public class TicketController implements Serializable {
     }
 	
 	public List<SelectItem> getPriorityItems() {
+        System.out.println("lol " + priorityItems.size());
 		return priorityItems;
 	}
 
