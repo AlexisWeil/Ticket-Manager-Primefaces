@@ -10,6 +10,7 @@ import fr.bargenson.util.faces.ControllerHelper;
 import org.primefaces.component.dialog.Dialog;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -40,6 +41,7 @@ public class TicketController implements Serializable {
 	private ControllerHelper controllerHelper;
 	
 	private Ticket ticket;
+    private Ticket ticketToShow;
 	private transient DataModel<Ticket> newTicketsModel;
     private List<Ticket> newTickets;
 	private List<SelectItem> priorityItems;
@@ -94,6 +96,11 @@ public class TicketController implements Serializable {
 
         return null;
 	}
+
+    public void selectTicket() {
+        ConfigurableNavigationHandler cnh = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+        cnh.performNavigation("/showTicket.jsf?ticketId=" + ticketToShow.getId() + "&faces-redirect=true");
+    }
 	
 	public List<SelectItem> getPriorityItems() {
 		return priorityItems;
@@ -129,5 +136,13 @@ public class TicketController implements Serializable {
 
     public void setProductOwnersItems(List<SelectItem> productOwnersItems) {
         this.productOwnersItems = productOwnersItems;
+    }
+
+    public Ticket getTicketToShow() {
+        return ticketToShow;
+    }
+
+    public void setTicketToShow(Ticket ticketToShow) {
+        this.ticketToShow = ticketToShow;
     }
 }

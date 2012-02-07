@@ -18,20 +18,28 @@
     <ui:define name="title"><h:outputText value="#{msg['newTickets.page.title']}" /></ui:define>
 
     <ui:define name="content">
+        <h1 class="legend">#{msg['newTickets.page.title']}</h1>
+
         <h:form prependId="false">
             <p:dataTable
                     id="newTicketsTable"
                     value="#{ticketController.newTickets}"
                     var="t"
-                    rendered="#{ticketController.newTicketsModel.rowAvailable}">
+                    rendered="#{ticketController.newTicketsModel.rowAvailable}"
+                    rowKey="#{t.id}"
+                    selection="#{ticketController.ticketToShow}"
+                    selectionMode="single"
+                    paginator="true"
+                    rows="15">
+                <p:ajax event="rowSelect" listener="#{ticketController.selectTicket}" />
+
                 <p:column
-                        sortBy="#{t.id}">
+                        sortBy="#{t.id}"
+                        style="text-align: right;">
                     <f:facet name="header">
-                        <h:outputText value="#{msg['newTickets.id']}" />
+                        #{msg['newTickets.id']}
                     </f:facet>
-                    <h:outputLink value="showTicket.jsf?ticketId=#{t.id}">
-                        <h:outputText value="##{t.id}" />
-                    </h:outputLink>
+                    ##{t.id}
                 </p:column>
 
                 <p:column
@@ -39,9 +47,9 @@
                         filterBy="#{t.summary}"
                         filterMatchMode="contains">
                     <f:facet name="header">
-                        <h:outputText value="#{msg['newTickets.summary']}" />
+                        #{msg['newTickets.summary']}
                     </f:facet>
-                    <h:outputText value="#{t.summary}" />
+                    #{t.summary}
                 </p:column>
 
                 <p:column
@@ -50,9 +58,9 @@
                         filterOptions="#{ticketController.priorityItems}"
                         filterMatchMode="exact">
                     <f:facet name="header">
-                        <h:outputText value="#{msg['newTickets.priority']}" />
+                        #{msg['newTickets.priority']}
                     </f:facet>
-                    <h:outputText value="#{msg[t.priority.bundleKey]}"/>
+                    #{msg[t.priority.bundleKey]}
                 </p:column>
 
                 <p:column
@@ -61,15 +69,15 @@
                         filterOptions="#{ticketController.productOwnersItems}"
                         filterMatchMode="exact">
                     <f:facet name="header">
-                        <h:outputText value="#{msg['newTickets.reporter']}" />
+                        #{msg['newTickets.reporter']}
                     </f:facet>
-                    <h:outputText value="#{t.reporter.lastName} #{t.reporter.firstName}" />
+                    #{t.reporter.lastName} #{t.reporter.firstName}
                 </p:column>
 
                 <p:column
                         sortBy="#{t.createdAt}">
                     <f:facet name="header">
-                        <h:outputText value="#{msg['newTickets.creationDate']}" />
+                        #{msg['newTickets.creationDate']}
                     </f:facet>
                     <h:outputText value="#{t.createdAt}">
                         <f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
@@ -79,7 +87,7 @@
 
             <h:panelGroup rendered="#{!ticketController.newTicketsModel.rowAvailable}">
                 <div class="alert-message warning">
-                    <p><h:outputText value="#{msg['newTickets.noAvailable']}" /></p>
+                    <p>#{msg['newTickets.noAvailable']}</p>
                 </div>
             </h:panelGroup>
         </h:form>

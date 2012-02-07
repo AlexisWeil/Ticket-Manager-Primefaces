@@ -3,14 +3,19 @@
 
 html {
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 12px;
 }
+
+body { background-color: #F3F3F3; color: #444; }
+
+h1.legend { text-align: center; font-size: 2em; color: #555; margin-bottom: 20px; }
 
 
 /*** HEADER ***/
 header {
     height: 40px;
     line-height: 40px;
+    font-weight: 1.1em;
 
     background-color:#222;
     background-color:#222222;
@@ -32,7 +37,7 @@ header * { color: white; text-decoration: none; }
 header > div { width: 1000px; margin-left: auto; margin-right: auto; }
 
 header h3 {
-    font-size: 1.2em;
+    font-size: 1.3em;
     float: left;
     padding: 0px 10px;
 }
@@ -46,10 +51,38 @@ header ul.secondary-nav { float: right; }
 
 
 /*** CORPS ***/
-section#Corps {
+section { padding: 30px 0px 50px; width: 100%; background: white; }
+
+div#Corps {
     width: 1000px;
-    margin: 80px auto 0px auto;
+    margin: 0px auto;
 }
+
+
+/*** FOOTER ***/
+footer { padding: 30px; text-align: center; }
+
+
+/*** DATATABLES ***/
+.ui-datatable .ui-column-filter { margin-top: 5px; }
+.ui-datatable tr.ui-state-hover { cursor: pointer; }
+.ui-datatable tbody td { line-height: 25px; padding-bottom: 0px; padding-top: 0px; }
+
+
+/*** FORMS ***/
+div#LoginForm { width: 400px; margin: 30px auto; }
+
+div.clearfix { width: 350px; line-height: 32px; margin: 15px; }
+div.clearfix label { font-size: 1.2em; }
+div.clearfix input {
+    float: right;
+    line-height: 30px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+div.actions { width: 350px; text-align: center; }
+div.actions .ui-button .ui-button-text { padding: 0px 20px; line-height: 2.4em; font-size: 1.4em; }
 
 ul.alert-message li {
     color: white;
