@@ -24,7 +24,8 @@
                     id="description"
                     value="#{ticketController.ticket.description}"
                     rows="5"
-                    cols="30" />
+                    cols="30"
+                    autoResize="false" />
 
             <div class="clear"></div>
 
@@ -33,21 +34,20 @@
 		<div class="clearfix">
             <h:outputLabel for="priority" value="#{msg['addTicket.priority']}" />
 
-            <p:selectOneMenu
+            <h:selectOneMenu
                     id="priority"
-                    value="#{ticketController.ticket.priority}"
-                    effect="puff">
+                    value="#{ticketController.ticket.priority}">
                 <f:selectItems value="#{ticketController.priorityItems}" var="p" />
-            </p:selectOneMenu>
+            </h:selectOneMenu>
 
             <p:message for="priority" />
 		</div>
 		<div class="actions">
             <p:commandButton
-                id="submit"
-                actionListener="#{ticketController.addTicket}"
-                value="#{msg['addTicket.submit']}"
-                update="dialogAddTicket" />
+                    id="submit"
+                    actionListener="#{ticketController.addTicket}"
+                    value="#{msg['addTicket.submit']}"
+                    update="dialogAddTicket, PanelCorps" />
 		</div>
     </h:panelGroup>
 </h:form>

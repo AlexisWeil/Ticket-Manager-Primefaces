@@ -37,14 +37,14 @@
                         </h:outputLink>
                     </li>
                     <li>
-                            <h:form rendered="#{userController.productOwner}">
-                                <p:commandLink
-                                    id="addTicketLink"
-                                    value="#{msg['template.main.menu.addTicket']}"
-                                    onclick="dialogAddTicket.show();"
-                                    actionListener="#{ticketController.openAddTicketDialog}"
-                                    ajax="true" />
-                            </h:form>
+                        <h:form rendered="#{userController.productOwner}">
+                            <p:commandLink
+                                id="addTicketLink"
+                                value="#{msg['template.main.menu.addTicket']}"
+                                onclick="dialogAddTicket.show();"
+                                actionListener="#{ticketController.openAddTicketDialog}"
+                                ajax="true" />
+                        </h:form>
                     </li>
                 </ul>
                 <ul class="nav secondary-nav">
@@ -68,8 +68,10 @@
 
         <section>
             <div id="Corps">
-                <p:growl id="growlMessages" />
-                <ui:insert name="content" />
+                <h:panelGroup id="PanelCorps">
+                    <p:growl id="growlMessages" />
+                    <ui:insert name="content" />
+                </h:panelGroup>
             </div>
         </section>
 
@@ -85,7 +87,7 @@
             </div>
             <div id="modal-from-dom-body" class="modal-body"></div>
         </div>-->
-        
+
         <p:dialog
             resizable="false"
             width="400"

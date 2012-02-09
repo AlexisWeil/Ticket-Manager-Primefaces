@@ -127,9 +127,10 @@ div.clearfix input {
     padding-top: 0px;
 }
 div.clearfix textarea { float: right; }
-div.clearfix .ui-selectonemenu { float: right; width: 150px !important; }
+div.clearfix .ui-selectonemenu, div.clearfix select { float: right; width: 150px !important; }
 div.clearfix .ui-selectonemenu .ui-selectonemenu-label { padding-bottom: 0px; padding-top: 0px; }
 div.clearfix .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon { position: relative; top: 50%; margin-top: -8px; }
+div.clearfix select { height: 32px; }
 
 div.actions { width: 100%; text-align: center; padding-top: 15px; }
 div.actions .ui-button .ui-button-text { padding: 0px 40px; line-height: 2.2em; font-size: 1.3em; }

@@ -7,12 +7,12 @@ import com.supinfo.ticketmanager.entity.TicketStatus;
 import com.supinfo.ticketmanager.service.TicketService;
 import com.supinfo.ticketmanager.service.UserService;
 import fr.bargenson.util.faces.ControllerHelper;
-import org.primefaces.component.dialog.Dialog;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -29,7 +29,7 @@ public class TicketController implements Serializable {
 	
 	private static final long serialVersionUID = 354054054054L;
 	
-	protected static final String ADD_TICKET_OUTCOME = "newTickets?faces-redirect=true";
+	protected static final String ADD_TICKET_OUTCOME = null;
 
 	@Inject
 	private TicketService ticketService;
@@ -77,12 +77,11 @@ public class TicketController implements Serializable {
     
     public void openAddTicketDialog() {
         dialogAddTicketOpen = true;
+        System.out.println("lala ?");
     }
 	
 	public String addTicket() throws Exception {
         System.out.println("Hello lol");
-        Dialog dialogAddTicket = (Dialog) FacesContext.getCurrentInstance().getViewRoot().findComponent("dialogAddTicket");
-        dialogAddTicket.setVisible(true);
 
         String username = controllerHelper.getUserPrincipal().getName();
         ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
@@ -92,6 +91,9 @@ public class TicketController implements Serializable {
         ticketService.addTicket(ticket);
 
         dialogAddTicketOpen = false;
+
+        UIComponent datatable = FacesContext.getCurrentInstance().getViewRoot().findComponent("PanelCorps");
+        System.out.println("hihi : " + datatable.getClass().getName());
 
         return null;
 	}
