@@ -25,12 +25,12 @@
                     id="newTicketsTable"
                     value="#{ticketController.newTickets}"
                     var="t"
-                    rendered="#{ticketController.newTicketsModel.rowAvailable}"
                     rowKey="#{t.id}"
                     selection="#{ticketController.ticketToShow}"
                     selectionMode="single"
                     paginator="true"
-                    rows="15">
+                    rows="15"
+                    emptyMessage="#{msg['newTickets.noAvailable']}">
                 <p:ajax event="rowSelect" listener="#{ticketController.selectTicket}" />
 
                 <p:column
@@ -84,12 +84,6 @@
                     </h:outputText>
                 </p:column>
             </p:dataTable>
-
-            <h:panelGroup rendered="#{!ticketController.newTicketsModel.rowAvailable}">
-                <div class="alert-message warning">
-                    <p>#{msg['newTickets.noAvailable']}</p>
-                </div>
-            </h:panelGroup>
         </h:form>
     </ui:define>
 

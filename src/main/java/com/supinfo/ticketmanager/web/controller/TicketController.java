@@ -13,10 +13,9 @@ import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ public class TicketController implements Serializable {
 	
 	private Ticket ticket;
     private Ticket ticketToShow;
-	private transient DataModel<Ticket> newTicketsModel;
     private List<Ticket> newTickets;
 	private List<SelectItem> priorityItems;
     private List<SelectItem> productOwnersItems;
@@ -51,28 +49,30 @@ public class TicketController implements Serializable {
     @PostConstruct
     public void init() {
         ticket = new Ticket();
-        newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
 
-        ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
-        priorityItems = new ArrayList<SelectItem>();
-        priorityItems.add(new SelectItem("", "All"));
-        for (TicketPriority priority : TicketPriority.values()) {
-            priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        if(req.getParameter("ticketId") != null && (ticketToShow == null || (ticketToShow != null && ticketToShow.getId() != Long.parseLong(req.getParameter("ticketId"))))) {
+            ticketToShow = ticketService.findTicketById(Long.parseLong(req.getParameter("ticketId")));
+            System.out.println("Show ticket " + ticketToShow.getId());
         }
-        
-        productOwnersItems = new ArrayList<SelectItem>();
-        productOwnersItems.add(new SelectItem("", "All"));
-        for(ProductOwner p : userService.findAllProductOwners()) {
-            productOwnersItems.add(new SelectItem(p, p.getLastName() + " " + p.getFirstName()));
+        else {
+            newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
+
+            ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
+            priorityItems = new ArrayList<SelectItem>();
+            priorityItems.add(new SelectItem("", "All"));
+            for (TicketPriority priority : TicketPriority.values()) {
+                priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
+            }
+
+            productOwnersItems = new ArrayList<SelectItem>();
+            productOwnersItems.add(new SelectItem("", "All"));
+            for(ProductOwner p : userService.findAllProductOwners()) {
+                productOwnersItems.add(new SelectItem(p, p.getLastName() + " " + p.getFirstName()));
+            }
         }
     }
-	
-	public DataModel<Ticket> getNewTicketsModel() {
-		if(newTicketsModel == null) {
-			newTicketsModel = new ListDataModel<Ticket>(ticketService.getTicketsByStatus(TicketStatus.NEW));
-		}
-		return newTicketsModel;
-	}
     
     public void openAddTicketDialog() {
         dialogAddTicketOpen = true;

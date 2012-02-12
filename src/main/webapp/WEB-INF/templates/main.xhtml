@@ -68,10 +68,8 @@
 
         <section>
             <div id="Corps">
-                <h:panelGroup id="PanelCorps">
-                    <p:growl id="growlMessages" />
-                    <ui:insert name="content" />
-                </h:panelGroup>
+                <p:growl id="growlMessages" />
+                <ui:insert name="content" />
             </div>
         </section>
 
@@ -81,21 +79,13 @@
             <em>Powered by Java EE 6 !</em>
         </footer>
 
-        <!--<div id="modal-from-dom" class="modal hide fade" style="display: none; ">
-            <div class="modal-header">
-                <a href="#" class="close">×</a>
-            </div>
-            <div id="modal-from-dom-body" class="modal-body"></div>
-        </div>-->
-
         <p:dialog
             resizable="false"
             width="400"
             widgetVar="dialogAddTicket"
             draggable="true"
             id="dialogAddTicket"
-            visible="#{ticketController.dialogAddTicketOpen}"
-            onHide="dialogClosed();">
+            visible="#{ticketController.dialogAddTicketOpen}">
             <ui:include src="#{servletContext.contextPath}/_addTicket.xhtml" />
         </p:dialog>
 

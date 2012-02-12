@@ -1,32 +1,24 @@
 package com.supinfo.ticketmanager.web.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.ResourceBundle;
-
-import javax.faces.model.DataModel;
-import javax.faces.model.SelectItem;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.supinfo.ticketmanager.entity.ProductOwner;
 import com.supinfo.ticketmanager.entity.Ticket;
 import com.supinfo.ticketmanager.entity.TicketPriority;
 import com.supinfo.ticketmanager.entity.TicketStatus;
 import com.supinfo.ticketmanager.service.TicketService;
 import com.supinfo.ticketmanager.service.UserService;
-
 import fr.bargenson.util.faces.ControllerHelper;
 import fr.bargenson.util.test.ReflectionHelper;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.faces.model.SelectItem;
+import java.security.Principal;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TicketControllerTest {
 
@@ -69,20 +61,6 @@ public class TicketControllerTest {
 		ticketToFind.setId(1L);
 
 		initSimpleNewTickets();
-	}	
-
-	@Test
-	public void testGetNewTicketsModel() throws Exception {
-		TicketService ticketServiceMock = mock(TicketService.class);
-		when(ticketServiceMock.getTicketsByStatus(TicketStatus.NEW)).thenReturn(newTickets);
-		injectTicketService(ticketServiceMock);
-		
-		DataModel<Ticket> model = ticketController.getNewTicketsModel();
-
-		assertNotNull(model);
-
-		assertEquals(newTickets.size(), model.getRowCount());
-		assertEquals(newTickets, model.getWrappedData());
 	}
 
 	@Test

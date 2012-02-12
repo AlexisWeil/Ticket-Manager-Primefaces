@@ -1,20 +1,12 @@
 package com.supinfo.ticketmanager.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-
-import org.hibernate.validator.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +20,7 @@ public class Comment implements Serializable {
     @Id @GeneratedValue
     private Long id;
 
-    @Lob @NotBlank
+    @Lob @NotBlank(message = "Content must not be empty")
     private String content;
 
     @NotNull @Past

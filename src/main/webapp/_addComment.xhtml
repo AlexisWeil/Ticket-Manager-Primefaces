@@ -4,32 +4,33 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:p="http://primefaces.org/ui">
 
-    <f:metadata>
-        <f:viewParam name="ticketId" value="#{commentController.comment.ticket}" converter="#{ticketConverter}"/>
-    </f:metadata>
 
-    <fieldset>
-        <legend><h:outputText value="#{msg['addComment.legend']}" /></legend>
-        <div class="clearfix">
-            <div>
-                <p:messages/>
-            </div>
-        </div>
-        <div class="clearfix">
-            <div class="input">
-                <p:inputTextarea
-                        value="#{commentController.comment.content}" />
-            </div>
-        </div>
-        <div class="actions">
-            <p:password
-                    value="#{commentController.comment.ticket}"
-                    converter="#{ticketConverter}" />
+    <h1 class="legend">#{msg['addComment.legend']}</h1>
 
-            <p:commandButton
-                    id="submit"
-                    action="#{commentController.addComment}" value="#{msg['addComment.submit']}" />
-        </div>
-    </fieldset>
+    <div class="clearfix">
+        <p:inputTextarea
+                id="commentContent"
+                value="#{commentController.comment.content}"
+                style="width: 96%; padding: 2%;"
+                rows="10"
+                autoResize="false" />
+
+        <div class="clear"></div>
+
+        <p:message for="commentContent" />
+    </div>
+
+    <div class="actions">
+        <p:inputText
+                type="hidden"
+                value="#{commentController.comment.ticket}" />
+
+        <p:commandButton
+                id="submit"
+                actionListener="#{commentController.addComment}"
+                ajax="true"
+                update="dialogAddComment"
+                value="#{msg['addComment.submit']}" />
+    </div>
 
 </h:form>

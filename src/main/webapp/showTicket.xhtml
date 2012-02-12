@@ -6,24 +6,8 @@
     xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/main.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="ticketId" value="#{ticketController.ticket}" converter="#{ticketConverter}"/>
-	</f:metadata>
 
 	<ui:define name="head">
-		<script type="text/javascript">
-			$(document).ready( function() {
-				$('#addCommentLink').click( function() {
-					$.ajax({
-						url: "_addComment.jsf?ticketId=#{ticketController.ticket.id}",
-						success: function(html) {
-							$('#modal-from-dom-body').html(html);
-							$('#modal-from-dom').modal('toggle');
-						}
-					});
-				});
-			});
-		</script>
 		<style type="text/css">
 			article header h2 {
 				text-align: center;
@@ -48,68 +32,88 @@
 		</style>
 	</ui:define>
 
-	<ui:define name="title"><h:outputText value="#{msg['showTicket.page.title']} #{ticketController.ticket.id}" /></ui:define>
+	<ui:define name="title"><h:outputText value="#{msg['showTicket.page.title']} #{ticketController.ticketToShow.id}" /></ui:define>
 
 	<ui:define name="content">
 		<article>
 			<header>
-				<h2><h:outputText value="#{ticketController.ticket.summary}" /></h2>
+				<h2><h:outputText value="#{ticketController.ticketToShow.summary}" /></h2>
 				<i>
 					<h:outputText value="#{msg['showTicket.creationDate']}" />
-					<h:outputText value="#{ticketController.ticket.createdAt}">
+					<h:outputText value="#{ticketController.ticketToShow.createdAt}">
 						<f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
 					</h:outputText>
 				</i>
 			</header>
+
 			<section id="ticket">
 				<h:panelGrid columns="4">
 					<h:outputText value="#{msg['showTicket.reporter']}" styleClass="header" />
-					<h:outputText value="#{ticketController.ticket.reporter.firstName}
-												#{ticketController.ticket.reporter.lastName}" />
+					<h:outputText value="#{ticketController.ticketToShow.reporter.firstName}
+												#{ticketController.ticketToShow.reporter.lastName}" />
 					
 					<h:outputText value="#{msg['showTicket.developer']}" styleClass="header" />
-					<h:outputText rendered="#{not empty ticketController.ticket.developer}"
-									value="#{ticketController.ticket.developer.firstName} 
-												#{ticketController.ticket.developer.lastName}" />
-					<h:outputText rendered="#{empty ticketController.ticket.developer}"
+					<h:outputText rendered="#{not empty ticketController.ticketToShow.developer}"
+									value="#{ticketController.ticketToShow.developer.firstName} 
+												#{ticketController.ticketToShow.developer.lastName}" />
+					<h:outputText rendered="#{empty ticketController.ticketToShow.developer}"
 									value="/" />
 					
 					<h:outputText value="#{msg['showTicket.priority']}" styleClass="header" />
-					<h:outputText value="#{ticketController.ticket.priority}" />
+					<h:outputText value="#{ticketController.ticketToShow.priority}" />
 					
 					<h:outputText value="#{msg['showTicket.status']}" styleClass="header" />
-					<h:outputText value="#{ticketController.ticket.status}" />
+					<h:outputText value="#{ticketController.ticketToShow.status}" />
 				</h:panelGrid>
 				<p>
-					<h:outputText value="#{ticketController.ticket.description}" />
+					<h:outputText value="#{ticketController.ticketToShow.description}" />
 				</p>
 			</section>
+
 			<section id="comments">
-				<h5><h:outputText value="#{msg['showTicket.comments']}" /></h5>
-				<h:outputLink id="addCommentLink" value="#" styleClass="btn info" data-controls-modal="modal-from-dom" rendered="#{userController.authenticated}">
-					<h:outputText value="#{msg['showTicket.addComment']}" />
-				</h:outputLink>	
-				<c:forEach items="#{ticketController.ticket.comments}" var="comment">
-					<article class="comment">
-						<h:panelGrid columns="2">
-							<h:column>
-								<h:outputText value="#{msg['showTicket.comment.author']}" />
-								<h:outputText value="#{comment.author.firstName} 
+				<h1 class="legend">#{msg['showTicket.comments']}</h1>
+
+                <h:form prependId="false">
+                    <p:commandLink
+                            id="addCommentLink"
+                            rendered="#{userController.authenticated}"
+                            value="#{msg['showTicket.addComment']}"
+                            onclick="dialogAddComment.show();"
+                            actionListener="#{commentController.openAddCommentDialog}" />
+
+                    <c:forEach items="#{ticketController.ticketToShow.comments}" var="comment">
+                        <article class="comment">
+                            <h:panelGrid columns="2">
+                                <h:column>
+                                    <h:outputText value="#{msg['showTicket.comment.author']}" />
+                                    <h:outputText value="#{comment.author.firstName}
 															#{comment.author.lastName}" />
-							</h:column>
-							<h:column>
-								<h:outputText value="#{msg['showTicket.comment.creationDate']}" />
-								<h:outputText value="#{comment.createdAt}">
-									<f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
-								</h:outputText>
-							</h:column>
-						</h:panelGrid>
-						<p>
-							<h:outputText value="#{comment.content}" />
-						</p>
-					</article>
-				</c:forEach>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{msg['showTicket.comment.creationDate']}" />
+                                    <h:outputText value="#{comment.createdAt}">
+                                        <f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
+                                    </h:outputText>
+                                </h:column>
+                            </h:panelGrid>
+                            <p>
+                                <h:outputText value="#{comment.content}" />
+                            </p>
+                        </article>
+                    </c:forEach>
+                </h:form>
 			</section>
+
+            <p:dialog
+                    id="dialogAddComment"
+                    widgetVar="dialogAddComment"
+                    width="400"
+                    draggable="true"
+                    modal="false"
+                    visible="#{commentController.dialogAddCommentOpen}">
+                <ui:include src="#{servletContext.contextPath}/_addComment.xhtml" />
+            </p:dialog>
+
 		</article>
 	</ui:define>
 
