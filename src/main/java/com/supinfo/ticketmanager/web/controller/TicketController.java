@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -77,12 +76,9 @@ public class TicketController implements Serializable {
     
     public void openAddTicketDialog() {
         dialogAddTicketOpen = true;
-        System.out.println("lala ?");
     }
 	
 	public String addTicket() throws Exception {
-        System.out.println("Hello lol");
-
         String username = controllerHelper.getUserPrincipal().getName();
         ProductOwner reporter = (ProductOwner) userService.findUserByUsername(username);
 
@@ -92,8 +88,8 @@ public class TicketController implements Serializable {
 
         dialogAddTicketOpen = false;
 
-        UIComponent datatable = FacesContext.getCurrentInstance().getViewRoot().findComponent("PanelCorps");
-        System.out.println("hihi : " + datatable.getClass().getName());
+        ConfigurableNavigationHandler cnh = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+        cnh.performNavigation("/newTickets.jsf?faces-redirect=true");
 
         return null;
 	}
@@ -104,7 +100,6 @@ public class TicketController implements Serializable {
     }
 	
 	public List<SelectItem> getPriorityItems() {
-        System.out.println("lol " + priorityItems.size());
 		return priorityItems;
 	}
 
