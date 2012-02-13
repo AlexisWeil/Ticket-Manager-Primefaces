@@ -98,8 +98,7 @@ header ul.nav li a { color: #999; }
 header ul.nav li a:hover { color: white; }
 
 header ul.secondary-nav { float: right; }
-
-header i { position: absolute; right: 20px; top: 0px; }
+header a:hover { text-decoration: none; }
 
 
 /*** CORPS ***/
@@ -144,8 +143,34 @@ div.actions .ui-button .ui-button-text { padding: 0px 40px; line-height: 2.2em; 
 
 
 /*** SHOW TICKET ***/
+#HeaderTicket {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 4px solid #222;
+}
+
+#HeaderTicket * { color: #222; }
+#HeaderTicket h2 { text-align: center; }
+#HeaderTicket i { position: absolute; right: 20px; top: 0px; }
+
 section#ticket table { width: 100%; }
 section#ticket table tr { line-height: 2.5em; }
-section#ticket table td span.header { font-size: 1.4em; display: block; text-align: center; color: #555; }
+section#ticket p { margin-top: 20px; padding: 10px; }
+
+section#ticket table td span.header {
+    font-size: 1.4em;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    color: #555;
+}
+
+section#comments { width: 60%; margin-left: auto; margin-right: auto; }
+article.comment { padding: 10px; border-bottom: 1px solid #EEE; }
+article.comment table { width: 100%; }
+article.comment .date { text-align: right; }
+article.comment p { padding: 10px 0px; }
+
 
 

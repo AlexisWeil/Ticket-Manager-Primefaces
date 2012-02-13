@@ -12,23 +12,6 @@
 			article header h2 {
 				text-align: center;
 			}
-			#ticket .header {
-				font-weight: bold;
-				text-align: right;
-			}
-			#ticket p {
-				padding: 10px;
-			}
-			#comments{
-				padding-top: 10px;
-				margin: auto;
-				width: 60%;
-				text-align: center;
-			}
-			.comment {
-				border: 1px gray solid;
-				margin: 5px;
-			}
 		</style>
 	</ui:define>
 
@@ -36,7 +19,7 @@
 
 	<ui:define name="content">
 		<article>
-			<header>
+			<div id="HeaderTicket">
 				<h2><h:outputText value="#{ticketController.ticketToShow.summary}" /></h2>
 				<i>
 					<h:outputText value="#{msg['showTicket.creationDate']}" />
@@ -44,7 +27,7 @@
 						<f:convertDateTime type="both" timeStyle="short" dateStyle="short" />
 					</h:outputText>
 				</i>
-			</header>
+			</div>
 
 			<section id="ticket">
 				<h:panelGrid columns="4">
@@ -83,12 +66,15 @@
 
                     <c:forEach items="#{ticketController.ticketToShow.comments}" var="comment">
                         <article class="comment">
-                            <h:panelGrid columns="2">
+                            <h:panelGrid
+                                    columns="2"
+                                    columnClasses="author, date">
                                 <h:column>
                                     <h:outputText value="#{msg['showTicket.comment.author']}" />
                                     <h:outputText value="#{comment.author.firstName}
 															#{comment.author.lastName}" />
                                 </h:column>
+
                                 <h:column>
                                     <h:outputText value="#{msg['showTicket.comment.creationDate']}" />
                                     <h:outputText value="#{comment.createdAt}">

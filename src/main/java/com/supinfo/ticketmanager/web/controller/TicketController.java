@@ -52,25 +52,9 @@ public class TicketController implements Serializable {
 
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        if(req.getParameter("ticketId") != null && (ticketToShow == null || (ticketToShow != null && ticketToShow.getId() != Long.parseLong(req.getParameter("ticketId"))))) {
+        if(req.getParameter("ticketId") != null && ticketToShow == null) {
             ticketToShow = ticketService.findTicketById(Long.parseLong(req.getParameter("ticketId")));
             System.out.println("Show ticket " + ticketToShow.getId());
-        }
-        else {
-            newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
-
-            ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
-            priorityItems = new ArrayList<SelectItem>();
-            priorityItems.add(new SelectItem("", "All"));
-            for (TicketPriority priority : TicketPriority.values()) {
-                priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
-            }
-
-            productOwnersItems = new ArrayList<SelectItem>();
-            productOwnersItems.add(new SelectItem("", "All"));
-            for(ProductOwner p : userService.findAllProductOwners()) {
-                productOwnersItems.add(new SelectItem(p, p.getLastName() + " " + p.getFirstName()));
-            }
         }
     }
     
@@ -100,6 +84,15 @@ public class TicketController implements Serializable {
     }
 	
 	public List<SelectItem> getPriorityItems() {
+        if(priorityItems == null) {
+            ResourceBundle bundle = controllerHelper.getResourceBundle("msg");
+            priorityItems = new ArrayList<SelectItem>();
+            priorityItems.add(new SelectItem("", "All"));
+            for (TicketPriority priority : TicketPriority.values()) {
+                priorityItems.add(new SelectItem(priority, bundle.getString(priority.getBundleKey())));
+            }
+        }
+
 		return priorityItems;
 	}
 
@@ -120,6 +113,9 @@ public class TicketController implements Serializable {
     }
 
     public List<Ticket> getNewTickets() {
+        if(newTickets == null)
+            newTickets = ticketService.getTicketsByStatus(TicketStatus.NEW);
+
         return newTickets;
     }
 
@@ -128,6 +124,14 @@ public class TicketController implements Serializable {
     }
 
     public List<SelectItem> getProductOwnersItems() {
+        if(productOwnersItems == null) {
+            productOwnersItems = new ArrayList<SelectItem>();
+            productOwnersItems.add(new SelectItem("", "All"));
+            for(ProductOwner p : userService.findAllProductOwners()) {
+                productOwnersItems.add(new SelectItem(p, p.getLastName() + " " + p.getFirstName()));
+            }
+        }
+
         return productOwnersItems;
     }
 

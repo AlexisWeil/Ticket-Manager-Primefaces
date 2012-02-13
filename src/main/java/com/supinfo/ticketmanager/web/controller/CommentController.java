@@ -7,11 +7,11 @@ import com.supinfo.ticketmanager.service.UserService;
 import fr.bargenson.util.faces.ControllerHelper;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 @ManagedBean
@@ -39,11 +39,7 @@ public class CommentController implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println("Hello comment !");
         comment = new Comment();
-
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        System.out.println(req.getParameter("ticketId") + " ");
     }
 
     public void openAddCommentDialog() {
@@ -58,6 +54,9 @@ public class CommentController implements Serializable {
 		commentService.addComment(comment);
 
         dialogAddCommentOpen = false;
+
+        ConfigurableNavigationHandler cnh = (ConfigurableNavigationHandler) FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+        cnh.performNavigation("/showTicket.jsf?ticketId=" + comment.getTicket().getId() + "&faces-redirect=true");
 		
 		return ADD_COMMENT_OUTCOME;
 	}
