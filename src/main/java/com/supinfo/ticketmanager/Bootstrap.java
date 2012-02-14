@@ -32,20 +32,8 @@ public class Bootstrap implements ServletContextListener {
 				"Jobs", "steve@apple.com", new Date()
 				);
 
-        ProductOwner productOwner1 = new ProductOwner(
-                "Zarkus13", digester.digest("lala"), "Alexis",
-                "Weil", "zarkus13@gmail.com", new Date()
-        );
-
-        ProductOwner productOwner2 = new ProductOwner(
-                "Zarkus", digester.digest("lala"), "Jean",
-                "Weil", "zarkus@gmail.com", new Date()
-        );
-
 		addUserIfDoesntExist(developer);
 		addUserIfDoesntExist(productOwner);
-        addUserIfDoesntExist(productOwner1);
-        addUserIfDoesntExist(productOwner2);
 	}
 
 	private void addUserIfDoesntExist(User user) {
